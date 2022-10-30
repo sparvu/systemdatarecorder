@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- the ID is a number with 21 digits -->
+<subscription id="610352413668166531957">
+
+  <!-- the "groups" section stores all the groups received 
+       for this subscriber from collectors
+  -->
+  <groups>
+    <!-- the name of a group should be limited to 20 letters
+         or special chars: space, underscore or dash
+    -->
+    <group>Dev</group>
+    <group>Test</group>
+    <group>Advanced testing</group>
+  </groups>
+
+  <hosts>
+    <!-- the ID is the unique hash (generated based on 
+         MAC address and a random string)
+    -->
+    <host id="hvfkN/qlp/zhXR3cuerq6jd2Z7g">
+      <name>nereid</name>
+      <description>Solaris 10 Software Development</description>
+          <!-- one of the groups in the section above,
+               or empty if the host is in no group
+          -->
+	  <group>Test</group>
+      <type>vm</type>
+      <os>na</os>
+      <cpus>4</cpus>
+      <phys_mem>1024</phys_mem>
+      <swap_mem>2048</swap_mem>
+      <disks>2</disks>
+      <nics>2</nics>
+      <interfaces>		
+        <interface name="e1000g0" type="Ethernet" description="prod interface">
+          <arecord>s10u8</arecord>
+	  <cname></cname>
+	  <address>192.168.1.26</address>
+        </interface>
+      </interfaces>
+
+      <!-- Monitoring Objects -->
+      <objects>
+	<object>syslx</object>
+	<object>cpulx</object>
+      </objects>
+
+    </host>
+  </hosts>
+
+  <!-- settings with event-triggering rules -->
+  <events>
+    <event name="client1-cpu" object="syslx" metric="cpupct" level="75%" condition="gt" period="90s" gravity="warning" />
+    <event name="client1-mem" object="syslx" metric="realfreepct" level="10%" condition="lt" period="90s" gravity="error" />
+  </events>
+
+
+  <!-- this section stores the view rigths for "child" subscription (viewers)  -->
+  <views>
+    <view id="610352459668166539922">
+      <!-- define only the objects that the user cand see -->
+      <objects>
+        <object>syslx</object> <!-- this user can see only the syslx object -->
+      </objects>
+    </view>
+
+    <!-- account details and password for each view id subscription will be stored 
+         in the accounts.db file; also, in accounts.db file the account will be marked 
+         as "child" for this (parent) subscription
+    -->
+  </views>
+
+</subscription>
